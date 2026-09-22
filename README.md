@@ -1,7 +1,5 @@
 # Shell 脚本大全
 
-[![GitHub](https://img.shields.io/badge/GitHub-xuanz54%2FShell-blue?logo=github)](https://github.com/xuanz54/Shell)
-
 常用 Linux Shell 脚本分类合集，开箱即用，**所有文件与文件夹均使用中文命名**，共 45 个实用脚本。
 
 | 分类 | 数量 | 用途 |
