@@ -1,0 +1,17 @@
+# 系统
+*.bak
+*.tmp
+*.log
+/backup/
+
+# 敏感信息
+*.pem
+*.key
+id_rsa*
+.env
+hosts.txt
+users.txt
+
+# OS
+.DS_Store
+Thumbs.db
