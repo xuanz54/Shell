@@ -1,6 +1,8 @@
 # Shell 脚本大全
 
-常用 Linux Shell 脚本分类合集，开箱即用，**所有文件与文件夹均使用中文命名**，共 45 个实用脚本。
+[![GitHub](https://img.shields.io/badge/GitHub-xuanz54%2FShell-blue?logo=github)](https://github.com/xuanz54/Shell)
+
+常用运维脚本分类合集，开箱即用，**所有文件与文件夹均使用中文命名**，覆盖 **Linux / Windows / macOS** 三平台，共 **74** 个脚本 + **3** 份对照表。
 
 | 分类 | 数量 | 用途 |
 |------|------|------|
@@ -12,20 +14,49 @@
 | [用户/](#用户) | 4 | 批量建号、改密、账户审计 |
 | [日志/](#日志) | 4 | 日志分析、告警、巡检报告 |
 | [公共库/](#公共库) | 1 | 通用函数库 |
+| [Windows/](#windows-) | 19 | PowerShell 版系统/网络/文件/运维脚本 |
+| [macOS/](#macos-) | 7 | 苹果系统专用脚本（brew、launchd 等） |
+| [发行版适配/](#发行版适配-) | 3 | 跨发行版检测、统一安装与服务管理 |
+| [对照表/](#对照表-) | 3 文档 | 三平台命令、发行版差异、软件安装对照 |
 
 ## 目录结构
 
 ```
 Shell/
-├── 系统/          # 系统监控与管理
-├── 网络/          # 网络检测与诊断
-├── 文件/          # 文件批量操作
-├── 备份/          # 数据备份与恢复
-├── 运维/          # 部署与运维工具
-├── 用户/          # 账户管理与审计
-├── 日志/          # 日志分析与监控
-└── 公共库/        # 通用函数库
+├── 系统/              # 系统监控与管理（Linux）
+├── 网络/              # 网络检测与诊断（Linux）
+├── 文件/              # 文件批量操作（Linux）
+├── 备份/              # 数据备份与恢复
+├── 运维/              # 部署与运维工具
+├── 用户/              # 账户管理与审计
+├── 日志/              # 日志分析与监控
+├── 公共库/            # 通用函数库
+├── Windows/           # PowerShell 脚本（系统/网络/文件/运维）
+├── macOS/             # macOS 专用脚本
+├── 发行版适配/        # apt/dnf/pacman/apk 跨发行版适配
+├── 对照表/            # 跨平台命令对照等 3 份文档
+└── README.md
 ```
+
+## 跨平台对照（快速索引）
+
+| 我想… | Linux | Windows | macOS |
+|-------|-------|---------|-------|
+| 看系统信息 | `系统/系统信息.sh` | `Windows/系统/系统信息.ps1` | `macOS/系统信息.sh` |
+| 查磁盘 | `系统/磁盘检查.sh` | `Windows/系统/磁盘检查.ps1` | `macOS/磁盘检查.sh` |
+| Ping 批量检测 | `网络/Ping检测.sh` | `Windows/网络/Ping检测.ps1` | 同 Linux |
+| 端口检测 | `网络/端口检测.sh` | `Windows/网络/端口检测.ps1` | 同 Linux |
+| 查公网 IP | `网络/公网IP查询.sh` | `Windows/网络/公网IP查询.ps1` | 同 Linux |
+| 带宽监控 | `网络/带宽监控.sh` | `Windows/网络/带宽监控.ps1` | 同 Linux |
+| 批量重命名 | `文件/批量重命名.sh` | `Windows/文件/批量重命名.ps1` | 同 Linux |
+| 查大文件 | `文件/查找大文件.sh` | `Windows/文件/查找大文件.ps1` | 同 Linux |
+| 目录备份 | `备份/目录备份.sh` | `Windows/文件/目录备份.ps1` | 同 Linux |
+| 日志轮转 | `运维/日志轮转.sh` | `Windows/运维/日志轮转.ps1` | `macOS/brew系统清理.sh` |
+| 服务检查 | `系统/服务检查.sh` | `Windows/系统/服务检查.ps1` | `macOS/服务检查.sh` |
+| 登录审计 | `系统/登录审计.sh` | `Windows/系统/登录审计.ps1` | `macOS/登录审计.sh` |
+| 装常用软件 | `发行版适配/一键安装.sh` | `winget`（见对照表） | `macOS/brew批量安装.sh` |
+
+更多命令级对照见 [对照表/跨平台命令对照.md](对照表/跨平台命令对照.md)。
 
 ## 脚本清单
 
@@ -106,16 +137,73 @@ Shell/
 |------|------|
 | 公共函数.sh | 彩色日志、确认、重试、锁、备份、Webhook 通知等通用函数 |
 
+### Windows/
+PowerShell 脚本，运行方式：
+```powershell
+powershell -ExecutionPolicy Bypass -File Windows\系统\系统信息.ps1
+```
+
+| 脚本 | 对应 Linux 脚本 | 用法 |
+|------|-----------------|------|
+| 系统/系统信息.ps1 | 系统/系统信息.sh | `-File 系统信息.ps1` |
+| 系统/磁盘检查.ps1 | 系统/磁盘检查.sh | `[-Threshold 80]` |
+| 系统/内存监控.ps1 | 系统/内存监控.sh | `[-Threshold 80]` |
+| 系统/服务检查.ps1 | 系统/服务检查.sh | `服务名1 服务名2` |
+| 系统/系统清理.ps1 | 系统/系统清理.sh | `[-Yes]` |
+| 系统/进程监控.ps1 | 系统/CPU监控.sh | `[-Interval 2] [-Count 0]` |
+| 系统/进程守护.ps1 | 系统/进程守护.sh | `-ProcessName 名称` |
+| 系统/登录审计.ps1 | 系统/登录审计.ps1 | 建议管理员运行 |
+| 网络/Ping检测.ps1 | 网络/Ping检测.sh | `主机...` 或 `-File hosts.txt` |
+| 网络/端口检测.ps1 | 网络/端口检测.sh | `-HostName 目标 -Ports 22,80` |
+| 网络/公网IP查询.ps1 | 网络/公网IP查询.sh | `-File 公网IP查询.ps1` |
+| 网络/带宽监控.ps1 | 网络/带宽监控.sh | `[-Interface 网卡] [-Interval 2]` |
+| 文件/批量重命名.ps1 | 文件/批量重命名.sh | `-Prefix/-Replace/-Sequence [-Apply]` |
+| 文件/查找大文件.ps1 | 文件/查找大文件.sh | `[-Dir] [-MB 100] [-Limit 20]` |
+| 文件/目录备份.ps1 | 备份/目录备份.sh | `-Source 源 -Dest 目标 [-Keep 7]` |
+| 文件/权限查看.ps1 | 文件/权限审计.sh | `[-Path 路径]`（ACL 模型） |
+| 运维/日志轮转.ps1 | 运维/日志轮转.sh | `[-Dir] [-CompressDays 7]` |
+| 运维/防火墙规则.ps1 | —（ufw 对应） | `-Action List/Allow/Block -Port` |
+| 运维/巡检报告.ps1 | 日志/巡检报告.sh | `[-OutFile 路径]` |
+
+### macOS/
+| 脚本 | 说明 | 用法 |
+|------|------|------|
+| 系统信息.sh | sw_vers + system_profiler 硬件信息 | `./系统信息.sh` |
+| 磁盘检查.sh | macOS 卷使用率检查 | `./磁盘检查.sh [阈值%]` |
+| CPU监控.sh | top 快照式 CPU 监控 | `./CPU监控.sh [间隔] [次数]` |
+| brew批量安装.sh | Homebrew 批量装开发环境 | `./brew批量安装.sh [最小\|完整]` |
+| brew系统清理.sh | brew 缓存 + 系统缓存清理 | `./brew系统清理.sh [-y]` |
+| 登录审计.sh | last + unified log 登录审计 | `./登录审计.sh` |
+| 服务检查.sh | launchctl/brew services 检查 | `./服务检查.sh [label...]` |
+
+### 发行版适配/
+| 脚本 | 说明 | 用法 |
+|------|------|------|
+| 发行版检测.sh | 输出 OS/PKG_MGR/SVC_MGR，提供 pkg_install、svc_* | `source 发行版检测.sh` 或 `./发行版检测.sh` |
+| 一键安装.sh | 自动适配 apt/dnf/pacman/apk/brew 安装工具 | `./一键安装.sh [最小\|完整]` |
+| 服务管理对照.sh | systemd/OpenRC/SysV/launchd 统一操作 | `./服务管理对照.sh status nginx` |
+
+### 对照表/
+| 文档 | 内容 |
+|------|------|
+| 跨平台命令对照.md | Linux ↔ Windows ↔ macOS 常用命令一一对应（系统/网络/进程/服务/压缩/包管理等） |
+| 发行版差异速查.md | apt/dnf/pacman/apk/zypper 对照、systemd/openrc 差异、路径与 busybox 坑 |
+| 软件安装对照.md | 常用开发/数据库/容器软件三平台安装命令 |
+
 ## 快速开始
 
 ```bash
-# 赋予执行权限
+# Linux / macOS
 chmod +x **/*.sh
+./系统/系统信息.sh
+source 公共库/公共函数.sh
+source 发行版适配/发行版检测.sh && pkg_install curl jq
+```
 
-# 引用公共库
-source "$(dirname "$0")/../公共库/公共函数.sh"
-log_info "开始执行"
-require curl git || exit 1
+```powershell
+# Windows
+powershell -ExecutionPolicy Bypass -File Windows\系统\系统信息.ps1
+powershell -ExecutionPolicy Bypass -File Windows\系统\磁盘检查.ps1 -Threshold 80
 ```
 
 ## 定时任务示例
@@ -131,8 +219,15 @@ require curl git || exit 1
 0 9 * * * /path/Shell/系统/磁盘检查.sh 85
 ```
 
+Windows 计划任务：
+```powershell
+schtasks /create /tn "磁盘巡检" /tr "powershell -ExecutionPolicy Bypass -File C:\Shell\Windows\系统\磁盘检查.ps1 -Threshold 85" /sc daily /st 09:00
+```
+
 ## 注意事项
 
-- 脚本以 `bash` 编写，建议在 Linux 环境运行
-- 涉及系统变更的脚本请先用预览模式确认
+- Linux/macOS 脚本以 `bash` 编写；Windows 脚本为 PowerShell 5.1+（兼容 Windows PowerShell 与 pwsh）
+- `.ps1` 已保存为 UTF-8 with BOM，避免中文乱码
+- 涉及系统变更的脚本请先用预览模式/`-WhatIf` 确认
 - 密码、Token 等敏感信息请通过环境变量传入，不要写死在脚本里
+- 跨发行版安装请优先用 `发行版适配/一键安装.sh`
